@@ -1,0 +1,11 @@
+.flex-container {
+  display: flex;
+  z-index: 1;
+}
+.flex-container > div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body { margin: 0; }

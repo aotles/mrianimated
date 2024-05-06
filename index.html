@@ -3,36 +3,25 @@
 	<head>
 		<meta charset="utf-8">
 		<title>MRI spin.js app</title>
-		<style>
-      .flex-container {
-        display: flex;
-      }
-      .flex-container > div{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
-			body { margin: 0; }
-		</style>
+		<link rel="stylesheet" href="styles.css" type="text/css"/>
 	</head>
-
-
-
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 	<body>
     <body>
-		  <script type="module" src="/main.js"></script>
+		  <script type="module" src="/animate.js"></script>
 		  <script type="module" src="/graph.js"></script>
-	  </body>
-    <div class="flex-container">
+		  <script type="module" src="/main.js"></script>
+    </body>
+    <div class="flex-container" id="graph-container">
       <div1>
         <canvas id="XMagnitude" style="width:100%;max-width:400px"></canvas>
       </div1>
       <div2>
-        <canvas id="ZMagnitude" style="width:100%;max-width:400px"></canvas>
+        <canvas id="ZMagnitude" style="width:100%;max-width:400px;z-index:1;"></canvas>
       </div2>
+      <div3>
+        <canvas id="protonSpin"></canvas>
+      </div3>
     </div>
 	</body>
 </html>
