@@ -5,7 +5,7 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 const renderer = new THREE.WebGLRenderer({antialias: true, canvas: myCanvas});
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( window.innerWidth *.5, window.innerHeight *.5);
 document.body.appendChild( renderer.domElement );
 
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -41,8 +41,8 @@ camera.position.y = 5;
 camera.rotateOnAxis(new THREE.Vector3(1, 0, 0), -Math.PI/4);
 var clock = new THREE.Clock();
 
-const T1 = 20.0;
-const T2 = 20.0;
+//const T1 = 20.0;
+//const T2 = 20.0;
 const w = 1.0;
 
 function animate() {
@@ -50,6 +50,8 @@ function animate() {
   //lamor procession - > is the 1 in the z direction
   //protonArrow.setDirection(dir.applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.01));
   var t = clock.getElapsedTime();
+  var T1 = document.getElementById("T1_slider").value;
+  var T2 = document.getElementById("T2_slider").value;
   //protonArrow.setDirection(new THREE.Vector3(delta*10.0, 1, 0).normalize());
   protonArrow.setDirection(new THREE.Vector3(
     Math.exp(-t/T2)*Math.cos(-w*t),      //Mx

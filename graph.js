@@ -2,11 +2,13 @@ const MxT_Values = [];
 const MxValues  = [];
 const MzT_Values = [];
 const MzValues  = [];
-const T1 = 20.0;
-const T2 = 20.0;
+var T1 = document.getElementById("T1_slider").value;
+var T2 = document.getElementById("T2_slider").value;
+var Tmax = T1*2;
+var deltaT = Tmax/50;
 const w = 1.0;
-generateData("Math.exp(-x/T2)*Math.cos(-w*x)", 0, 20, MxT_Values, MxValues, 0.5);
-generateData("1 - Math.exp(-x/T1)", 0, 20, MzT_Values, MzValues, 0.5);
+generateData("Math.exp(-x/T2)*Math.cos(-w*x)", 0, Tmax, MxT_Values, MxValues, deltaT);
+generateData("1 - Math.exp(-x/T1)", 0, Tmax, MzT_Values, MzValues, deltaT);
     
 new Chart("XMagnitude", {
   type: "line",
@@ -29,7 +31,7 @@ new Chart("XMagnitude", {
   }
 });
      
-new Chart("ZMagnitude", {
+let zChart = new Chart("ZMagnitude", {
   type: "line",
   data: {
     labels: MzT_Values,
@@ -51,8 +53,19 @@ new Chart("ZMagnitude", {
 });
    
 function generateData(value, i1, i2, xValues, yValues, step = 1) {
+  xValues.length  = 0;
+  yValues.length  = 0;
   for (let x = i1; x <= i2; x += step) {
     yValues.push(eval(value));
     xValues.push(x);
   }
 }
+
+//update chart in real time as user changes T1 and T2 values
+document.getElementById("T1_slider").addEventListener("input", function() {
+  T1 = document.getElementById("T1_slider").value;
+  Tmax = T1*2;
+  deltaT = Tmax/50;
+  generateData("1 - Math.exp(-x/T1)", 0, Tmax, MzT_Values, MzValues, deltaT);
+  zChart.update();
+});
