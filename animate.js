@@ -36,9 +36,11 @@ scene.add( xArrow );
 scene.add( yArrow ); 
 scene.add( zArrow ); 
 
+camera.position.y = 1;
 camera.position.z = 5;
-camera.position.y = 5;
-camera.rotateOnAxis(new THREE.Vector3(1, 0, 0), -Math.PI/4);
+camera.position.x = 5;
+//camera.rotateOnAxis(new THREE.Vector3(1, 0, 0), -Math.PI/4);
+camera.lookAt(new THREE.Vector3(0, 0, 0));
 var clock = new THREE.Clock();
 
 //const T1 = 20.0;
