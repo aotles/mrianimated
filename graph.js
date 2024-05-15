@@ -7,7 +7,7 @@ const MzValues  = [];
 var T1 = document.getElementById("T1_slider").value;
 var T2 = document.getElementById("T2_slider").value;
 var Tmax = T1*2;
-var deltaT = Tmax/50;
+var deltaT = Tmax/100;
 const w = 1.0;
 generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);
 generateMzData(0, Tmax, MzT_Values, MzValues, deltaT);
@@ -144,13 +144,17 @@ function animate() {
   T1 = document.getElementById("T1_slider").value;
   T2 = document.getElementById("T2_slider").value;
   Tmax = T1*2;
-  deltaT = Tmax/50;
+  deltaT = Tmax/100;
   t = clock.getElapsedTime();
+  //ugh have to accommodate for the fact that the chart is not updating
+  var x = t/deltaT;
   generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);
   generateMzData(0, Tmax, MzT_Values, MzValues, deltaT);
 
-  xChart.options.annotation.annotations[0].value = t;
-  zChart.options.annotation.annotations[0].value = t;
+  //the x-axis scale
+  console.log(x);
+  xChart.options.annotation.annotations[0].value = x;
+  zChart.options.annotation.annotations[0].value = x;
   xChart.update();
   zChart.update();
 }
