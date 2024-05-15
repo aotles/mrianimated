@@ -1,3 +1,5 @@
+import * as THREE from 'three';
+
 const MxT_Values = [];
 const MxValues  = [];
 const MzT_Values = [];
@@ -9,6 +11,9 @@ var deltaT = Tmax/50;
 const w = 1.0;
 generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);
 generateMzData(0, Tmax, MzT_Values, MzValues, deltaT);
+var clock = new THREE.Clock();
+var t = clock.getElapsedTime();
+
     
 let xChart = new Chart("XMagnitude", {
   type: "line",
@@ -28,6 +33,7 @@ let xChart = new Chart("XMagnitude", {
       text: "Mx vs Time",
       fontSize: 16
     },
+    
     scales: {
       xAxes: [{
         scaleLabel: {
@@ -45,6 +51,16 @@ let xChart = new Chart("XMagnitude", {
           display: true,
           labelString: "Mx"
         }
+      }]
+    },
+    annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'vertical',
+        scaleID: 'x-axis-0',
+        value: t, // elapsed time
+        borderColor: 'red',
+        borderWidth: 2,
       }]
     }
   }
@@ -80,9 +96,21 @@ let zChart = new Chart("ZMagnitude", {
           }
         }
       }]
+    },
+    annotation: {
+      annotations: [{
+        type: 'line',
+        mode: 'vertical',
+        scaleID: 'x-axis-0',
+        value: 0, // elapsed time
+        borderColor: 'red',
+        borderWidth: 2,
+        drawTime: 'afterDatasetsDraw'
+      }]
     }
   }
 });
+
       
 function generateMxData(i1, i2, xValues, yValues, step = 1) {
   xValues.length  = 0;
@@ -102,20 +130,29 @@ function generateMzData(i1, i2, xValues, yValues, step = 1) {
   }
 }
 
+function generateVertData(xValues, yValues) {
+  xValues.length = 0;
+  yValues.length = 0;
+  xValues.push(clock.getElapsedTime());
+  xValues.push(clock.getElapsedTime());
+  yValues.push(Math.min(MzValues));
+  yValues.push(Math.max(MzValues));
+}
 
-//update chart in real time as user changes T1 and T2 values
-document.getElementById("T1_slider").addEventListener("input", function() {
+function animate() {  
+  requestAnimationFrame( animate );
   T1 = document.getElementById("T1_slider").value;
+  T2 = document.getElementById("T2_slider").value;
   Tmax = T1*2;
   deltaT = Tmax/50;
+  t = clock.getElapsedTime();
   generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);
-  xChart.update();
   generateMzData(0, Tmax, MzT_Values, MzValues, deltaT);
-  zChart.update();
-});
 
-document.getElementById("T2_slider").addEventListener("input", function() {
-  T2 = document.getElementById("T2_slider").value;
-  generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);
+  xChart.options.annotation.annotations[0].value = t;
+  zChart.options.annotation.annotations[0].value = t;
   xChart.update();
-});
+  zChart.update();
+}
+
+animate();
