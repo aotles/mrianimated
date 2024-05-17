@@ -146,23 +146,45 @@ function generateVertData(xValues, yValues) {
   yValues.push(Math.max(MzValues));
 }
 
-var x;
-function animate() {  
-  requestAnimationFrame( animate );
-  T1 = document.getElementById("T1_slider").value;
-  T2 = document.getElementById("T2_slider").value;
+
+var T1_slider = document.getElementById("T1_slider");
+var T2_slider = document.getElementById("T2_slider");
+T1_slider.onchange = function() {
+  T1 = this.value;
   Tmax = T1*2;
   deltaT = Tmax/numSteps;
-  t = clock.getElapsedTime();
-  //ugh have to accommodate for the fact that the chart is not updating
-  x = t/deltaT;
   generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);
   generateMzData(0, Tmax, MzT_Values, MzValues, deltaT);
 
+  t = clock.getElapsedTime();
+  var x = t/deltaT;
   xChart.options.annotation.annotations[0].value = x;
   zChart.options.annotation.annotations[0].value = x;
+
   xChart.update();
   zChart.update();
 }
 
+T2_slider.onchange = function() {
+  T2 = this.value;
+  generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);
+  xChart.update();
+}
+
+var then = 0;
+function animate() {  
+  requestAnimationFrame( animate );
+  t = clock.getElapsedTime();
+  if (t - then > .2) { //5fps
+    then = t;
+    //ugh have to accommodate for the fact that the chart is not updating
+    var x = t/deltaT;
+
+    xChart.options.annotation.annotations[0].value = x;
+    zChart.options.annotation.annotations[0].value = x;
+    xChart.update();
+    zChart.update();
+  }
+
+}
 animate();
