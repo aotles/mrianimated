@@ -15,8 +15,8 @@
 	</head>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>	
-    <div class="vert_wrapper" id="graph-container">
-      <div1 class="horiz_wrapper" style="height: 20%;">
+    <div class="full_screen" id="graph-container">
+      <div class="horiz_wrapper">
         <canvas id="XMagnitude" style="width:100%;max-width:400px"></canvas>
         <canvas id="ZMagnitude" style="width:100%;max-width:400px;"></canvas>
         <div4 class = "vert_wrapper">
@@ -31,10 +31,8 @@
             <output>20</output>
           </div6>
         </div4>
-        <div3>
-          <canvas id="protonSpin" style="height:80%;"></canvas>
-        </div3>
-      </div1>
+      </div>
+      <canvas id="protonSpin"></canvas>
     </div>
     <body>
 		  <script type="module" src="/graph.js"></script>

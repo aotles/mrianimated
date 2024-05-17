@@ -7,7 +7,7 @@ const MzValues  = [];
 var T1 = document.getElementById("T1_slider").value;
 var T2 = document.getElementById("T2_slider").value;
 var Tmax = T1*2;
-const numSteps = 100;
+const numSteps = 1000;
 var deltaT = Tmax/numSteps;
 const w = 1.0;
 generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);

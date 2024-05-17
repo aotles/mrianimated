@@ -11,7 +11,6 @@
 }
 
 .flex-item {
-  background: tomato;
   margin: 10px;
   padding: 20px;
   font-size: 30px;
@@ -23,7 +22,15 @@
   flex-direction: column;
   align-items: center;
   padding: 5px;
-  height: auto;
+}
+
+.full_screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  height: 100vh;
+
 }
 
 .horiz_wrapper {
@@ -31,6 +38,11 @@
   flex-direction: row;
   justify-content: left;
   padding: 5px;
+  height: 20%;
+}
+
+#protonSpin {
+  height: 80%;
 }
 
 body { margin: 0px; }
