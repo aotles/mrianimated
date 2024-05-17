@@ -15,27 +15,31 @@
 	</head>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>	
+    <div class="vert_wrapper" id="graph-container">
+      <div1 class="horiz_wrapper" style="height: 20%;">
+        <canvas id="XMagnitude" style="width:100%;max-width:400px"></canvas>
+        <canvas id="ZMagnitude" style="width:100%;max-width:400px;"></canvas>
+        <div4 class = "vert_wrapper">
+          <div5 class = "horiz_wrapper">
+            <p> T1: </p>
+            <input type="range" id= "T1_slider" value="100" min="1" max="1000" oninput="this.nextElementSibling.value = this.value">
+            <output>100</output>
+          </div5>
+          <div6 class = "horiz_wrapper">
+            <p> T2: </p>
+            <input type="range" id= "T2_slider" value="20" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
+            <output>20</output>
+          </div6>
+        </div4>
+        <div3>
+          <canvas id="protonSpin" style="height:80%;"></canvas>
+        </div3>
+      </div1>
+    </div>
     <body>
-		  <script type="module" src="/animate.js"></script>
 		  <script type="module" src="/graph.js"></script>
 		  <script type="module" src="/main.js"></script>
+		  <script defer type="module" src="/animate.js"></script>
     </body>
-    <div class="flex-container" id="graph-container">
-      <div1>
-        <canvas id="XMagnitude" style="width:100%;max-width:400px"></canvas>
-      </div1>
-      <div2>
-        <canvas id="ZMagnitude" style="width:100%;max-width:400px;z-index:1;"></canvas>
-      </div2>
-      <div3>
-        <canvas id="protonSpin"></canvas>
-      </div3>
-      <div4>
-        <input type="range" id= "T1_slider" value="100" min="1" max="1000" oninput="this.nextElementSibling.value = this.value">
-        <output>100</output>
-        <input type="range" id= "T2_slider" value="20" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
-        <output>20</output>
-      </div4>
-    </div>
 	</body>
 </html>

@@ -7,7 +7,8 @@ const MzValues  = [];
 var T1 = document.getElementById("T1_slider").value;
 var T2 = document.getElementById("T2_slider").value;
 var Tmax = T1*2;
-var deltaT = Tmax/100;
+const numSteps = 100;
+var deltaT = Tmax/numSteps;
 const w = 1.0;
 generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);
 generateMzData(0, Tmax, MzT_Values, MzValues, deltaT);
@@ -95,6 +96,12 @@ let zChart = new Chart("ZMagnitude", {
             return value.toFixed(2);
           }
         }
+      }],
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: "Percent M0 Recovered"
+        }
       }]
     },
     annotation: {
@@ -139,20 +146,19 @@ function generateVertData(xValues, yValues) {
   yValues.push(Math.max(MzValues));
 }
 
+var x;
 function animate() {  
   requestAnimationFrame( animate );
   T1 = document.getElementById("T1_slider").value;
   T2 = document.getElementById("T2_slider").value;
   Tmax = T1*2;
-  deltaT = Tmax/100;
+  deltaT = Tmax/numSteps;
   t = clock.getElapsedTime();
   //ugh have to accommodate for the fact that the chart is not updating
-  var x = t/deltaT;
+  x = t/deltaT;
   generateMxData(0, Tmax, MxT_Values, MxValues, deltaT);
   generateMzData(0, Tmax, MzT_Values, MzValues, deltaT);
 
-  //the x-axis scale
-  console.log(x);
   xChart.options.annotation.annotations[0].value = x;
   zChart.options.annotation.annotations[0].value = x;
   xChart.update();

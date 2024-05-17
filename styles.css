@@ -1,11 +1,36 @@
 .flex-container {
   display: flex;
-  z-index: 1;
 }
+
 .flex-container > div{
+  background: aqua;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-body { margin: 0; }
+
+.flex-item {
+  background: tomato;
+  margin: 10px;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.vert_wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  height: auto;
+}
+
+.horiz_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  padding: 5px;
+}
+
+body { margin: 0px; }
