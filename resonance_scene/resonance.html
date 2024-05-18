@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Resonance Demonstration</title>
+		<link rel="stylesheet" href="styles.css" type="text/css"/>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@<version>/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@<version>/examples/jsm/"
+        }
+      }
+    </script>
+	</head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>	
+    <div class="full_screen" id="graph-container">
+      <canvas id="ResonanceSpin"></canvas>
+    </div>
+    <body>
+		  <script defer type="module" src="/resonance_scene/resonance.js"></script>
+    </body>
+	</body>
+</html>
