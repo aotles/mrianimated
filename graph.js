@@ -34,6 +34,8 @@ let xChart = new Chart("XMagnitude", {
       text: "Mx vs Time",
       fontSize: 16
     },
+    tooltips: {enabled: false},
+    hover: {mode: null},
     
     scales: {
       xAxes: [{
@@ -85,6 +87,8 @@ let zChart = new Chart("ZMagnitude", {
       text: "Mz vs Time",
       fontSize: 16
     },
+    tooltips: {enabled: false},
+    hover: {mode: null},
     scales: {
       xAxes: [{
         scaleLabel: {

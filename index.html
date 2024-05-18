@@ -1,43 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>MRI spin.js app</title>
-		<link rel="stylesheet" href="styles.css" type="text/css"/>
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://cdn.jsdelivr.net/npm/three@<version>/build/three.module.js",
-          "three/addons/": "https://cdn.jsdelivr.net/npm/three@<version>/examples/jsm/"
-        }
-      }
-    </script>
-	</head>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>	
-    <div class="full_screen" id="graph-container">
-      <div class="horiz_wrapper">
-        <canvas id="XMagnitude" style="width:100%;max-width:400px"></canvas>
-        <canvas id="ZMagnitude" style="width:100%;max-width:400px;"></canvas>
-        <div4 class = "vert_wrapper">
-          <div5 class = "horiz_wrapper">
-            <p> T1: </p>
-            <input type="range" id= "T1_slider" value="100" min="1" max="1000" oninput="this.nextElementSibling.value = this.value">
-            <output>100</output>
-          </div5>
-          <div6 class = "horiz_wrapper">
-            <p> T2: </p>
-            <input type="range" id= "T2_slider" value="20" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
-            <output>20</output>
-          </div6>
-        </div4>
-      </div>
-      <canvas id="protonSpin"></canvas>
-    </div>
-    <body>
-		  <script type="module" src="/graph.js"></script>
-		  <script type="module" src="/main.js"></script>
-		  <script defer type="module" src="/animate.js"></script>
-    </body>
-	</body>
-</html>
+<head>
+  <title>List of Links</title>
+</head>
+<body>
+  <ul>
+    <li><a href="decay_concepts.html">Rotating</a></li>
+    <!-- Add more links here -->
+  </ul>
+</body>
