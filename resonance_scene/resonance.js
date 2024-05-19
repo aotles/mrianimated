@@ -49,22 +49,22 @@ var clock = new THREE.Clock();
 
 const T1 = 20.0;
 const T2 = 20.0;
-const w = 1.0;
+const w = 2*Math.PI/1; //2pi /second
 var t = clock.getElapsedTime();
+var Beff = new THREE.Vector3(0, 1, 0);
+const beffArrow = new THREE.ArrowHelper( Beff, origin, length, red );
+var tipAmnt = 0.1;
 
-var crossResult = new THREE.Vector3 (0, 0, 0);
+var sphereVec = new THREE.Vector3(0,0,0);      //My
 function animate() {
-	requestAnimationFrame( animate );
-  //lamor procession - > is the 1 in the z direction
-  //protonArrow.setDirection(dir.applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.01));
-  //protonArrow.setDirection(new THREE.Vector3(delta*10.0, 1, 0).normalize());
-  
-  crossResult.crossVectors(protonDir, Bfield).normalize();
-  protonArrow.setDirection(
-    //Lamor freq is simply caused by u x B
-    protonDir.addScaledVector(crossResult, 0.01)
-    );    
   t = clock.getElapsedTime();
+	requestAnimationFrame( animate );
+  console.log(protonDir.length());
+  sphereVec.setFromSphericalCoords(1, tipAmnt*t, w*t);
+  
+  protonArrow.setDirection(
+    sphereVec
+    );    
 	renderer.render( scene, camera );
 }
 
