@@ -6,7 +6,7 @@ const camera = new THREE.PerspectiveCamera( 75, myCanvas.width / myCanvas.height
 
 const renderer = new THREE.WebGLRenderer({antialias: true, canvas: myCanvas});
 //also hacky and not great!
-renderer.setSize( window.innerWidth, window.innerHeight);
+renderer.setSize( window.innerWidth, window.innerHeight*.8);
 
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
@@ -36,6 +36,8 @@ protonArrow.setDirection(protonDir);    //My
 const xArrow = new THREE.ArrowHelper( xdir, origin, length, red );
 const yArrow = new THREE.ArrowHelper( ydir, origin, length, green );
 const zArrow = new THREE.ArrowHelper( zdir, origin, length, blue );
+const rotxArrow = new THREE.ArrowHelper( xdir, origin, length, red );
+const rotyArrow = new THREE.ArrowHelper( ydir, origin, length, green );
 scene.add( protonArrow );
 scene.add( xArrow ); 
 scene.add( yArrow ); 
@@ -48,21 +50,37 @@ camera.position.x = 5;
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 var clock = new THREE.Clock();
 
-const T1 = 20.0;
-const T2 = 20.0;
 const w = 2*Math.PI/4; //2pi /second
 var t = clock.getElapsedTime();
 var Beff = new THREE.Vector3(0, 2, 0);
 const beffArrow = new THREE.ArrowHelper( Beff, origin, 5, teal );
 scene.add( beffArrow ); 
 var tipAmnt = 0.1;
-var offResonancePhi = 0.1*2*Math.PI;
+var offResonancePhi = 0;
+var flipAngleMax = document.getElementById("flipAngle").value / 180 * Math.PI;
+var currFA = 0;
+var currTime = clock.getElapsedTime();
 
 var sphereVec = new THREE.Vector3(0,0,0);      //My
+/* add event listeners */
+document.getElementById("wdelta").addEventListener("input", function(evt) {
+  offResonancePhi = (this.value / 180) * Math.PI;
+});
+document.getElementById("flipAngle").addEventListener("input", function(evt) {
+  flipAngleMax = (this.value / 180) * Math.PI;
+  currTime = clock.getElapsedTime();
+});
+
 function animate() {
-  t = clock.getElapsedTime();
 	requestAnimationFrame( animate );
-  sphereVec.setFromSphericalCoords(1, tipAmnt*t, w*t);
+  t = clock.getElapsedTime() - currTime;
+  if (currFA < flipAngleMax) {
+    currFA = tipAmnt*t;
+  }
+  else {
+    currFA = flipAngleMax;
+  } 
+  sphereVec.setFromSphericalCoords(1, currFA, w*t);
   Beff.setFromSphericalCoords(1, offResonancePhi, w*t);
   var sphereVec4= new THREE.Vector4(sphereVec.x, sphereVec.y, sphereVec.z, 1);
   var rotateOnX = new THREE.Matrix4().makeRotationX(offResonancePhi);

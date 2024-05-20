@@ -16,7 +16,19 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>	
     <div class="full_screen" id="graph-container">
-      <canvas id="ResonanceSpin"></canvas>
+      <div class="vert_wrapper">
+        <div class="horiz_wrapper">
+          <div class = "flex-item">
+            <label for="wdeltaLabel">Off Resonance Amount (between 0 & 360):</label>
+            <input type="number" id="wdelta" name="wdelta" value="0" min="0" max="360"/>
+          </div>
+          <div class = "flex-item">
+            <label for="Flip Angle">Flip Angle (between 0 & 180):</label>
+            <input type="number" id="flipAngle" name="flipAngle" value="180" min="0" max="180"/>
+          </div>
+          </div>
+        <canvas id="ResonanceSpin"></canvas>
+      </div>
     </div>
     <body>
 		  <script defer type="module" src="/resonance_scene/resonance.js"></script>
