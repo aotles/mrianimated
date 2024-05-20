@@ -27,6 +27,7 @@ const hex = 0xffff00;
 const red = 0xff0000;
 const green = 0x00ff00;
 const blue = 0x0000ff;
+const teal = 0x00ffff;
 const protonArrow = new THREE.ArrowHelper( dir, origin, length, hex );
 var protonDir = new THREE.Vector3( 1, 3, 0 ).normalize();
 var Bfield = new THREE.Vector3( 0, 1, 0 );
@@ -49,22 +50,33 @@ var clock = new THREE.Clock();
 
 const T1 = 20.0;
 const T2 = 20.0;
-const w = 2*Math.PI/1; //2pi /second
+const w = 2*Math.PI/4; //2pi /second
 var t = clock.getElapsedTime();
-var Beff = new THREE.Vector3(0, 1, 0);
-const beffArrow = new THREE.ArrowHelper( Beff, origin, length, red );
+var Beff = new THREE.Vector3(0, 2, 0);
+const beffArrow = new THREE.ArrowHelper( Beff, origin, 5, teal );
+scene.add( beffArrow ); 
 var tipAmnt = 0.1;
+var offResonancePhi = 0.1*2*Math.PI;
 
 var sphereVec = new THREE.Vector3(0,0,0);      //My
 function animate() {
   t = clock.getElapsedTime();
 	requestAnimationFrame( animate );
-  console.log(protonDir.length());
   sphereVec.setFromSphericalCoords(1, tipAmnt*t, w*t);
+  Beff.setFromSphericalCoords(1, offResonancePhi, w*t);
+  var sphereVec4= new THREE.Vector4(sphereVec.x, sphereVec.y, sphereVec.z, 1);
+  var rotateOnX = new THREE.Matrix4().makeRotationX(offResonancePhi);
+  var rotateOnZ = new THREE.Matrix4().makeRotationY(w*t);// we use Y instead of Z
+  sphereVec4.applyMatrix4(rotateOnX);
+  sphereVec4.applyMatrix4(rotateOnZ);
+  sphereVec.set(sphereVec4.x, sphereVec4.y, sphereVec4.z);
   
   protonArrow.setDirection(
     sphereVec
     );    
+  beffArrow.setDirection(
+    Beff
+    );
 	renderer.render( scene, camera );
 }
 
