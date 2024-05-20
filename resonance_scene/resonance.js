@@ -43,11 +43,10 @@ scene.add( xArrow );
 scene.add( yArrow ); 
 scene.add( zArrow ); 
 
-camera.position.y = 1;
-camera.position.z = 5;
-camera.position.x = 5;
-//camera.rotateOnAxis(new THREE.Vector3(1, 0, 0), -Math.PI/4);
-camera.lookAt(new THREE.Vector3(0, 0, 0));
+const centerScreen = new THREE.Vector3(0, 0, 0);
+var camPosition = new THREE.Vector3(5, 1, 5);
+camera.position.copy(camPosition);
+camera.lookAt(centerScreen);
 var clock = new THREE.Clock();
 
 const w = 2*Math.PI/4; //2pi /second
@@ -71,6 +70,13 @@ document.getElementById("flipAngle").addEventListener("input", function(evt) {
   currTime = clock.getElapsedTime();
 });
 
+var enRotCam = false; 
+document.getElementById("rotCam").addEventListener("input", function(evt) {
+  enRotCam = this.checked;
+});
+
+
+
 function animate() {
 	requestAnimationFrame( animate );
   t = clock.getElapsedTime() - currTime;
@@ -86,7 +92,9 @@ function animate() {
   var rotateOnX = new THREE.Matrix4().makeRotationX(offResonancePhi);
   var rotateOnZ = new THREE.Matrix4().makeRotationY(w*t);// we use Y instead of Z
   sphereVec4.applyMatrix4(rotateOnX);
-  sphereVec4.applyMatrix4(rotateOnZ);
+  if (offResonancePhi != 0) {
+    sphereVec4.applyMatrix4(rotateOnZ);
+  }
   sphereVec.set(sphereVec4.x, sphereVec4.y, sphereVec4.z);
   
   protonArrow.setDirection(
@@ -95,6 +103,17 @@ function animate() {
   beffArrow.setDirection(
     Beff
     );
+  //rotating camera vs stationary
+  if (enRotCam) {
+    var dummy = new THREE.Vector3(0, 0, 0); 
+    dummy.setFromCylindricalCoords(7.07, w*t + Math.PI/4, 1);
+    camera.position.copy(dummy);
+    //camera.position(new THREE.Vector3(5*Math.cos(w*t), 1, 5*Math.sin(w*t));
+    camera.lookAt(centerScreen);
+  } else {  
+    camera.position.copy(camPosition);
+    camera.lookAt(centerScreen);
+  }
 	renderer.render( scene, camera );
 }
 

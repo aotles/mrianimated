@@ -26,7 +26,11 @@
             <label for="Flip Angle">Flip Angle (between 0 & 180):</label>
             <input type="number" id="flipAngle" name="flipAngle" value="180" min="0" max="180"/>
           </div>
+          <div class = "flex-item">
+            <label for="RotCam">View rotating camera:</label>
+            <input type="checkbox" id="rotCam" name="rotCam" onchange="toggleCheckbox(this)"/>
           </div>
+        </div>
         <canvas id="ResonanceSpin"></canvas>
       </div>
     </div>
