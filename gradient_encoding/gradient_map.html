@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Gradient Mapping Demonstration</title>
+		<link rel="stylesheet" href="../styles.css" type="text/css"/>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@<version>/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@<version>/examples/jsm/"
+        }
+      }
+    </script>
+	</head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>	
+    <div class="full_screen" id="graph-container">
+      <div class="vert_wrapper">
+        <div class="horiz_wrapper">
+          <div class = "flex-item">
+            <label for="wdeltaLabel">Off Resonance Amount (between 0 & 360):</label>
+            <input type="number" id="wdelta" name="wdelta" value="0" min="0" max="360"/>
+          </div>
+          <div class = "flex-item">
+            <label for="Flip Angle">Flip Angle (between 0 & 180):</label>
+            <input type="number" id="flipAngle" name="flipAngle" value="180" min="0" max="180"/>
+          </div>
+          <div class = "flex-item">
+            <label for="RotCam">View rotating camera:</label>
+            <input type="checkbox" id="rotCam" name="rotCam" onchange="toggleCheckbox(this)"/>
+          </div>
+        </div>
+        <canvas id="gradient_map" height="500" width="800"></canvas>
+      </div>
+    </div>
+    <body>
+		  <script defer type="module" src="/gradient_encoding/gradient_map.js"></script>
+    </body>
+	</body>
+</html>
