@@ -1,17 +1,11 @@
 import * as THREE from 'three';
 
-var myCanvas = document.getElementById("protonSpin");
-var t2Canvas = document.getElementById("Mxy");
+var myCanvas = document.getElementById("Mz");
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, myCanvas.width / myCanvas.height, 0.1, 1000 );
 const renderer = new THREE.WebGLRenderer({antialias: true, canvas: myCanvas});
 //also hacky and not great!
-renderer.setSize( window.innerWidth * .6, window.innerHeight * .6);
-
-const t2camera = new THREE.PerspectiveCamera( 75, myCanvas.width / myCanvas.height, 0.1, 1000 );
-const t2renderer = new THREE.WebGLRenderer({antialias: true, canvas: t2Canvas});
-t2renderer.setSize( window.innerWidth * .3, window.innerHeight * .3);
-
+renderer.setSize( window.innerWidth * .3, window.innerHeight * .3);
 
 const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
@@ -55,23 +49,17 @@ var t = clock.getElapsedTime();
 var T1 = document.getElementById("T1_slider").value;
 var T2 = document.getElementById("T2_slider").value;
 
-var mxy = new THREE.Vector3(0, 0, 0);
-var mz  = new THREE.Vector3(0, 0, 0);
-var protonVec = new THREE.Vector3(0, 0, 0); 
+var protonVec = new THREE.Vector3(0, 0, 0);
 function animate() {
 	requestAnimationFrame( animate );
-
-  t = clock.getElapsedTime();
-  T1 = document.getElementById("T1_slider").value;
-  T2 = document.getElementById("T2_slider").value;
-  mxy.setFromCylindricalCoords(length*Math.exp(-t/T2), w*t, 0);
-  mz.setFromSphericalCoords((1 - Math.exp(-t/T1))*length, 0, 0);
   //lamor procession - > is the 1 in the z direction
   //protonArrow.setDirection(dir.applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.01));
   //protonArrow.setDirection(new THREE.Vector3(delta*10.0, 1, 0).normalize());
-  protonVec.addVectors(mxy, mz);
-  protonArrow.setDirection(protonVec);      //My
-  protonArrow.setLength(protonVec.length());      //My
+  //protonVec.setFromCylindricalCoords(1, w*t, 0);
+  t = clock.getElapsedTime();
+  T1 = document.getElementById("T1_slider").value;
+  protonArrow.setDirection(zdir);      //My
+  protonArrow.setLength((1 - Math.exp(-t/T1))*length);      //My
 	renderer.render( scene, camera );
 }
 
