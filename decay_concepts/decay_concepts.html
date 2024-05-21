@@ -17,26 +17,27 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>	
     <div class="full_screen" id="graph-container">
       <div class="horiz_wrapper">
-        <canvas id="XMagnitude" style="width:100%;max-width:400px"></canvas>
-        <canvas id="ZMagnitude" style="width:100%;max-width:400px;"></canvas>
-        <div4 class = "vert_wrapper">
+        <div class = "vert_wrapper">
           <div5 class = "horiz_wrapper">
             <p> T1: </p>
             <input type="range" id= "T1_slider" value="100" min="1" max="1000" oninput="this.nextElementSibling.value = this.value">
-            <output>100</output>
+            <output>100</output> <p> ms </p>
           </div5>
           <div6 class = "horiz_wrapper">
             <p> T2: </p>
             <input type="range" id= "T2_slider" value="20" min="1" max="100" oninput="this.nextElementSibling.value = this.value">
-            <output>20</output>
+            <output>20</output> <p> ms </p>
           </div6>
-        </div4>
+          <canvas id="XMagnitude" style="width:100%;max-width:400px"></canvas>
+          <canvas id="ZMagnitude" style="width:100%;max-width:400px;"></canvas>
+        </div>
+        <canvas id="protonSpin"></canvas>
+        <canvas id="Mxy"></canvas>
       </div>
-      <canvas id="protonSpin"></canvas>
     </div>
     <body>
 		  <script type="module" src="/decay_concepts/graph.js"></script>
-		  <script defer type="module" src="/animate.js"></script>
+		  <script defer type="module" src="/decay_concepts/decay_animations.js"></script>
     </body>
 	</body>
 </html>
