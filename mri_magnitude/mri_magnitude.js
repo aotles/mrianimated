@@ -48,7 +48,7 @@ function main() {
     // Time varying pixel color
     vec3 col = vec3(0,2,4);
     float mask = 0.;
-    mask = rand >= (1. - diffInSpins/100.) ? 1. : 0.;
+    mask = rand >= (1. - diffInSpins) ? 1. : 0.;
 
     // Output to screen
     gl_FragColor = vec4(col*mask,1.0);
@@ -95,7 +95,6 @@ function main() {
     const t = Date.now() / 1000 - startTime;
     gl.uniform1f(timeLocation, t)
     gl.uniform1f(teslasLocation, teslas);
-    //gl.uniform1f(randLocation, Math.random());
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }, 1000 / 60);
