@@ -19,19 +19,17 @@
       <div class="vert_wrapper">
         <div class="horiz_wrapper">
           <div class = "flex-item">
-            <label for="phaseMag">Max Phase Magnitude (between -180 & 180 degrees):</label>
-            <input type="number" id="phaseMag" name="phaseMag" value="0" min="-180" max="180"/>
-          </div>
-          <div class = "flex-item">
-            <label for="freqMag">Freq Magnitude: (degrees/s):</label>
-            <input type="number" id="freqMag" name="freqMag" value="0" />
+            <label for="teslas">Static Magnetic field strength (Teslas):</label>
+            <input type="number" id="teslas" name="teslas" value="0" min="0" max="100"/>
           </div>
         </div>
-        <canvas id="gradient_map" height="500" width="800" ></canvas>
+        <canvas id="shader_canvas" height="1000px" width="1000px"></canvas>
+        <canvas id="spin_camera" height="500" width="800"></canvas>
       </div>
     </div>
     <body>
-		  <script defer type="module" src="/gradient_encoding/gradient_map.js"></script>
+		  <script defer type="module" src="/mri_magnitude/mri_magnitude.js"></script>
+		  <script defer type="module" src="/mri_magnitude/mri_spin_cam.js"></script>
     </body>
 	</body>
 </html>

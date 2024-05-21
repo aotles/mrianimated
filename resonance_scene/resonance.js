@@ -58,7 +58,7 @@ var tipAmnt = 0.1;
 var offResonancePhi = 0;
 var flipAngleMax = document.getElementById("flipAngle").value / 180 * Math.PI;
 var currFA = 0;
-var currTime = clock.getElapsedTime();
+var startTime = clock.getElapsedTime();
 
 var sphereVec = new THREE.Vector3(0,0,0);      //My
 /* add event listeners */
@@ -67,19 +67,20 @@ document.getElementById("wdelta").addEventListener("input", function(evt) {
 });
 document.getElementById("flipAngle").addEventListener("input", function(evt) {
   flipAngleMax = (this.value / 180) * Math.PI;
-  currTime = clock.getElapsedTime();
+  startTime = clock.getElapsedTime();
 });
 
 var enRotCam = false; 
 document.getElementById("rotCam").addEventListener("input", function(evt) {
   enRotCam = this.checked;
+  startTime = clock.getElapsedTime();
 });
 
 
 
 function animate() {
 	requestAnimationFrame( animate );
-  t = clock.getElapsedTime() - currTime;
+  t = clock.getElapsedTime() - startTime;
   if (currFA < flipAngleMax) {
     currFA = tipAmnt*t;
   }
@@ -92,9 +93,9 @@ function animate() {
   var rotateOnX = new THREE.Matrix4().makeRotationX(offResonancePhi);
   var rotateOnZ = new THREE.Matrix4().makeRotationY(w*t);// we use Y instead of Z
   sphereVec4.applyMatrix4(rotateOnX);
-  sphereVec4.applyMatrix4(rotateOnZ);
-  //if (offResonancePhi != 0) {
-  //}
+  if (offResonancePhi != 0) {
+    sphereVec4.applyMatrix4(rotateOnZ);
+  }
   sphereVec.set(sphereVec4.x, sphereVec4.y, sphereVec4.z);
   
   protonArrow.setDirection(
