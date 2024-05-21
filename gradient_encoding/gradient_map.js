@@ -1,5 +1,17 @@
 main();
 
+var freqMag = 0;
+var startTime = Date.now() / 1000;
+document.getElementById("freqMag").addEventListener("input", function(evt) {
+  freqMag = (this.value / 180) * Math.PI;
+  startTime = Date.now() / 1000;
+});
+var phaseMag = 0;
+document.getElementById("phaseMag").addEventListener("input", function(evt) {
+  phaseMag = (this.value / 180) * Math.PI;
+  startTime = Date.now() / 1000;
+});
+
 function main() {
   const canvas = document.querySelector("#gradient_map");
   // Initialize the GL context
@@ -30,46 +42,33 @@ function main() {
   precision highp float;
   uniform vec2 iResolution;
   uniform float iTime;
+  uniform float freqGradMag;
+  uniform float phaseOffsetMag;
   void main( void )
   {
       // Normalized pixel coordinates (from 0 to 1)
       vec2 uv = gl_FragCoord.xy/iResolution.xy;
       float w = 1.0;
-      float freqGradMag = 5.0;
       float phaseOffset = 0.;
-      float phaseOffsetMag = 1.0;
       
       float time = iTime;
-      
       float mask = 1.0;
       
-      if (iTime > 2.5) {
-          phaseOffset = (uv.y -.5)*2.*3.14*phaseOffsetMag;
+      if (iTime > 3.) {
+        phaseOffset = (uv.y -.5)*2.*phaseOffsetMag;
       }
       
-      if (iTime > 5.) {
-          //if ((iTime - 5.) - uv.x <= .2) {
-              w = (uv.x-.5)*freqGradMag;
-          //} //This is a good idea if I want it to take time to apply the gradient
-      } else {
-          mask = 1.0;
-      }
-      float currAmp = cos(time*w+phaseOffset);
-      vec3 colorMask = vec3(0,0,0);
-      if (currAmp < 0.) {
-          colorMask = vec3(1,0,0);
-      } else {
-          colorMask = vec3(0,1,0);
-      }
-      float redChannel = 2.*cos(time*w+phaseOffset);
-      float greenChannel = 2.*cos(time*w + 1.5+phaseOffset);
-      
+      if (iTime > 6.) {
+        w = 1.0 +(uv.x-.5)*freqGradMag;
+      } 
+      float redChannel = cos(time*w+phaseOffset);
+      float greenChannel = cos(time*w + 3.14+phaseOffset);
   
-      // Time varying pixel color
-      //vec3 col = vec3(abs(redChannel),abs(greenChannel),0);
+      // Time varying pixel color w/ phase of signal
+      vec3 col = vec3((redChannel),(greenChannel),0);
   
       // Output to screen
-      gl_FragColor = vec4(colorMask,1.0)*mask;
+      gl_FragColor = vec4(col ,1.0);
   }
   `;
 
@@ -116,17 +115,20 @@ function main() {
   const position = gl.getAttribLocation(program, "aVertexPosition");
   const resolutionLocation = gl.getUniformLocation(program, "iResolution");
   const timeLocation = gl.getUniformLocation(program, "iTime");
+  const freqMagLocation = gl.getUniformLocation(program, "freqGradMag");
+  const phaseMagLocation = gl.getUniformLocation(program, "phaseOffsetMag");
   gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
 
   gl.enableVertexAttribArray(position);
   gl.vertexAttribPointer(position, 2, gl.FLOAT, false, 0, 0);
 
   gl.clearColor(0.0, 0.0, 0.0, 1.0);
-  const startTime = Date.now() / 1000;
 
   setInterval(() => {
     const t = Date.now() / 1000 - startTime;
     gl.uniform1f(timeLocation, t)
+    gl.uniform1f(freqMagLocation, freqMag);
+    gl.uniform1f(phaseMagLocation, phaseMag);
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }, 1000 / 60);

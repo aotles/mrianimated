@@ -19,16 +19,12 @@
       <div class="vert_wrapper">
         <div class="horiz_wrapper">
           <div class = "flex-item">
-            <label for="wdeltaLabel">Off Resonance Amount (between 0 & 360):</label>
-            <input type="number" id="wdelta" name="wdelta" value="0" min="0" max="360"/>
+            <label for="phaseMag">Max Phase Magnitude (between -180 & 180 degrees):</label>
+            <input type="number" id="phaseMag" name="phaseMag" value="0" min="-180" max="180"/>
           </div>
           <div class = "flex-item">
-            <label for="Flip Angle">Flip Angle (between 0 & 180):</label>
-            <input type="number" id="flipAngle" name="flipAngle" value="180" min="0" max="180"/>
-          </div>
-          <div class = "flex-item">
-            <label for="RotCam">View rotating camera:</label>
-            <input type="checkbox" id="rotCam" name="rotCam" onchange="toggleCheckbox(this)"/>
+            <label for="freqMag">Freq Magnitude: (degrees/s):</label>
+            <input type="number" id="freqMag" name="freqMag" value="0" />
           </div>
         </div>
         <canvas id="gradient_map" height="500" width="800"></canvas>

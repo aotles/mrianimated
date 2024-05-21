@@ -92,9 +92,9 @@ function animate() {
   var rotateOnX = new THREE.Matrix4().makeRotationX(offResonancePhi);
   var rotateOnZ = new THREE.Matrix4().makeRotationY(w*t);// we use Y instead of Z
   sphereVec4.applyMatrix4(rotateOnX);
-  if (offResonancePhi != 0) {
-    sphereVec4.applyMatrix4(rotateOnZ);
-  }
+  sphereVec4.applyMatrix4(rotateOnZ);
+  //if (offResonancePhi != 0) {
+  //}
   sphereVec.set(sphereVec4.x, sphereVec4.y, sphereVec4.z);
   
   protonArrow.setDirection(
