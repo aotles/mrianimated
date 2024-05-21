@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-var myCanvas = document.getElementById("spin_camera");
+var myCanvas = document.getElementById("flips_camera");
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, myCanvas.width / myCanvas.height, 0.1, 1000 );
 
@@ -31,6 +31,18 @@ const protonArrow = new THREE.ArrowHelper( dir, origin, length, hex );
 const xArrow = new THREE.ArrowHelper( xdir, origin, length, red );
 const yArrow = new THREE.ArrowHelper( ydir, origin, length, green );
 const zArrow = new THREE.ArrowHelper( zdir, origin, length, blue );
+
+//create 2d arrow of 100 arrows in front of screen
+var numRows = 10;
+var numCols = 10;
+const protonVecs = [];
+
+for (let x = 0; x < numRows; x++) {
+  for (let y = 0; y < numCols; y++) {
+    protonVecs.push(new THREE.Vector3(x, y, 0));
+  }
+}
+
 scene.add( protonArrow );
 scene.add( xArrow ); 
 scene.add( yArrow ); 
