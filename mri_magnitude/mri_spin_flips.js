@@ -14,20 +14,20 @@ const cube = new THREE.Mesh( geometry, material );
 //scene.add( cube );
 
 //Adding the arrow
-var dir = new THREE.Vector3( 1, 0, 0 );
+var dir = new THREE.Vector3( 0, 0, 0 );
 const xdir = new THREE.Vector3( 1, 0, 0 );
 const zdir = new THREE.Vector3( 0, 1, 0 );
 const ydir = new THREE.Vector3( 0, 0, 1 );
 const rfField = new THREE.Vector3( 0, 0, 1 );
 //normalize the direction vector (convert to vector of length 1)
 dir.normalize();
-var origin = new THREE.Vector3(-15, -12, 0 );
+var origin = new THREE.Vector3(-15, -8, 0 );
 const length = 4;
 const yellow = 0xffff00;
 const red = 0xff0000;
 const green = 0x00ff00;
 const blue = 0x0000ff;
-const protonArrow = new THREE.ArrowHelper( dir, origin, length, yellow );
+const avgArrow = new THREE.ArrowHelper( dir, origin, 0, yellow );
 const xArrow = new THREE.ArrowHelper( xdir, origin, length, red );
 const yArrow = new THREE.ArrowHelper( ydir, origin, length, green );
 const zArrow = new THREE.ArrowHelper( zdir, origin, length, blue );
@@ -36,7 +36,7 @@ const zArrow = new THREE.ArrowHelper( zdir, origin, length, blue );
 var numRows = 10;
 var numCols = 10;
 const protonVecs = [];
-
+var avgVec = new THREE.Vector3(0, 0, 0);
 
 var dummyVec =  new THREE.Vector3(0, 1, 0);
 for (let x = 0; x < numRows; x++) {
@@ -47,14 +47,13 @@ for (let x = 0; x < numRows; x++) {
   }
 }
 
-
-
-//scene.add( protonArrow );
+scene.add( avgArrow );
 scene.add( xArrow ); 
 scene.add( yArrow ); 
 scene.add( zArrow ); 
 
 const protonArrows = [];
+var protonArrowsOrigin;
 for (let x = 0; x < protonVecs.length; x++) {
   //place it into the right column
   var xind = x % numRows;
@@ -64,13 +63,13 @@ for (let x = 0; x < protonVecs.length; x++) {
   //zCoord is always 0
   var xCoord = -10 + 2*xind;
   var yCoord = -10 + 2*yind;
-  origin = new THREE.Vector3(xCoord, yCoord, 0 );
-  protonArrows.push(new THREE.ArrowHelper(protonVecs[x], origin, 2, yellow));
+  protonArrowsOrigin = new THREE.Vector3(xCoord, yCoord, 0 );
+  protonArrows.push(new THREE.ArrowHelper(protonVecs[x], protonArrowsOrigin, 3, yellow));
   scene.add( protonArrows[x] ); 
 }
 
 camera.position.y = 0;
-camera.position.z = 20;
+camera.position.z = 16;
 camera.position.x = 0;
 //camera.rotateOnAxis(new THREE.Vector3(1, 0, 0), -Math.PI/4);
 camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -93,7 +92,7 @@ document.getElementById("teslas").addEventListener("input", function(evt) {
   if (teslas > 0) {
     for (let x = 0; x < (Math.floor(protonVecs.length/2) -diffAmt); x++) {
       protonArrows[x].setDirection(new THREE.Vector3(0, -1, 0));
-      protonArrows[x].setColor(yellow);
+      protonArrows[x].setColor(red);
     }
     for (let x = (Math.floor(protonVecs.length/2) -diffAmt); x < protonVecs.length; x++) {
       protonArrows[x].setDirection(new THREE.Vector3(0, 1, 0));
@@ -105,21 +104,17 @@ document.getElementById("teslas").addEventListener("input", function(evt) {
   } else { //put them back in their random positions
     for (let x = 0; x < protonVecs.length; x++) {
       protonArrows[x].setDirection(protonVecs[x]);
-      protonArrows[x].setColor(yellow);
+      protonArrows[x].setColor(orange);
     }
   }
+
+  //Adjust magnitude of the Average Vector
+  avgArrow.setLength(diffAmt/2);
+
 });
 
-var sphereVec = new THREE.Vector3(0,0,0);      //My
 function animate() {
 	requestAnimationFrame( animate );
-  //lamor procession - > is the 1 in the z direction
-  //protonArrow.setDirection(dir.applyAxisAngle(new THREE.Vector3(0, 1, 0), 0.01));
-  //protonArrow.setDirection(new THREE.Vector3(delta*10.0, 1, 0).normalize());
-  t = clock.getElapsedTime();
-  sphereVec.setFromSphericalCoords(1, Math.PI/4, w*t);
-  protonArrow.setDirection(sphereVec);      //My
-  protonArrow.setLength(length*teslas/10);      //My
 	renderer.render( scene, camera );
 }
 

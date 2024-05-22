@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Gradient Mapping Demonstration</title>
+		<title>MRI Parallel Anti-Parallel Demo</title>
 		<link rel="stylesheet" href="../styles.css" type="text/css"/>
     <script type="importmap">
       {
@@ -20,16 +20,16 @@
         <div class="horiz_wrapper">
           <div class = "flex-item">
             <label for="teslas">Static Magnetic field strength (Teslas):</label>
-            <input type="number" id="teslas" name="teslas" value="0" min="0" max="100"/>
+            <input type="number" id="teslas" name="teslas" value="0" min="0" max="50"/>
           </div>
         </div>
-        <canvas id="shader_canvas" height="1000px" width="1000px"></canvas>
         <div class = "flex-item">
           <canvas id="flips_camera" height="500" width="800"></canvas>
         </div>
         <div class = "flex-item">
           <canvas id="spin_camera" height="500" width="800"></canvas>
         </div>
+        <canvas id="shader_canvas" height="1000px" width="1000px"></canvas>
       </div>
     </div>
     <body>

@@ -39,7 +39,8 @@ function main() {
 
   void main( void )
   {
-    float diffInSpins = teslas/100.; //percent out of 100
+    //each pixel is 100 protons if one of the protons 
+    float diffInSpins = teslas*3./10000.; //percent out of 100
     
     // Normalized pixel coordinates (from 0 to 1)
     vec2 uv = gl_FragCoord.xy/iResolution.xy;

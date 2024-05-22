@@ -51,7 +51,7 @@ var teslas =0;
 
 document.getElementById("teslas").addEventListener("input", function(evt) {
   teslas = this.value;
-  w = teslas;
+  w = teslas*Math.PI*2;
 });
 
 var sphereVec = new THREE.Vector3(0,0,0);      //My
@@ -63,7 +63,7 @@ function animate() {
   t = clock.getElapsedTime();
   sphereVec.setFromSphericalCoords(1, Math.PI/4, w*t);
   protonArrow.setDirection(sphereVec);      //My
-  protonArrow.setLength(length*teslas/10);      //My
+  protonArrow.setLength(length);      //My
 	renderer.render( scene, camera );
 }
 
